@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+<div class="dashboard">
+  <button onclick="location.href='dashboard.html'">🏠 Home</button>
+  <h2>Update Student</h2>
+  <input id="rollNo" placeholder="Roll No">
+  <input id="marks" placeholder="New Marks">
+  <input id="grade" placeholder="New Grade">
+  <button onclick="updateStudent()">Update</button>
+  <p id="response"></p>
+</div>
+<script>
+function updateStudent() {
+  let rollNo = document.getElementById("rollNo").value;
+  fetch('/update-student/' + rollNo, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      marks: document.getElementById("marks").value,
+      grade: document.getElementById("grade").value
+    })
+  }).then(res => res.json()).then(data => {
+    document.getElementById("response").textContent = data.message;
+  });
+}
+</script>
+</body>
+</html>
