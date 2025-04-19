@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <button onclick="location.href='dashboard.html'">🏠 Home</button>
+    <h2>Get Student</h2>
+    <input id="rollNo" placeholder="Enter Roll No">
+    <button onclick="fetchStudent()">Search</button>
+    <br><br>
+    <h3>Student Details:</h3>
+    <div id="studentDetails">
+      <!-- Student details will be displayed here -->
+    </div>
+  </div>
+
+  <script>
+    function fetchStudent() {
+      let rollNo = document.getElementById("rollNo").value;
+      fetch('/student/' + rollNo)
+        .then(res => res.json())
+        .then(data => {
+          if (data.message) {
+            document.getElementById("studentDetails").innerHTML = `<p>${data.message}</p>`;
+          } else {
+            // Create a table to display student details
+            let studentData = `
+              <table>
+                <tr>
+                  <th>Name</th>
+                  <td>${data.name}</td>
+                </tr>
+                <tr>
+                  <th>Roll No</th>
+                  <td>${data.rollNo}</td>
+                </tr>
+                <tr>
+                  <th>Courses</th>
+                  <td>${data.courses}</td>
+                </tr>
+                <tr>
+                  <th>Marks</th>
+                  <td>${data.marks}</td>
+                </tr>
+                <tr>
+                  <th>Grade</th>
+                  <td>${data.grade}</td>
+                </tr>
+              </table>
+            `;
+            document.getElementById("studentDetails").innerHTML = studentData;
+          }
+        });
+    }
+  </script>
+</body>
+</html>
