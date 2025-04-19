@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="dashboard">
+  <button onclick="location.href='dashboard.html'">🏠 Home</button>
+  <h2>Add Student</h2>
+  <input id="name" placeholder="Name">
+  <input id="rollNo" placeholder="Roll No">
+  <input id="courses" placeholder="Courses">
+  <input id="marks" placeholder="Marks">
+  <input id="grade" placeholder="Grade">
+  <button onclick="addStudent()">Submit</button>
+  <p id="response"></p>
+</div>
+
+<script>
+function addStudent() {
+  fetch('/add-student', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: document.getElementById("name").value,
+      rollNo: document.getElementById("rollNo").value,
+      courses: document.getElementById("courses").value,
+      marks: document.getElementById("marks").value,
+      grade: document.getElementById("grade").value
+    })
+  }).then(res => res.json()).then(data => {
+    document.getElementById("response").textContent = data.message;
+  });
+}
+</script>
+</body>
+</html>
