@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+<div class="dashboard">
+  <button onclick="location.href='dashboard.html'">🏠 Home</button>
+  <h2>Delete Student</h2>
+  <input id="rollNo" placeholder="Roll No">
+  <button onclick="deleteStudent()">Delete</button>
+  <p id="response"></p>
+</div>
+<script>
+function deleteStudent() {
+  let rollNo = document.getElementById("rollNo").value;
+  fetch('/delete-student/' + rollNo)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("response").textContent = data.message;
+    });
+}
+</script>
+</body>
+</html>
