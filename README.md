@@ -13,13 +13,13 @@ This is a Flask-based Student Management System API that allows you to add, upda
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repo/student-management-api.git
+   git clone https://github.com/gayatrirkaware/Student-Record-Manager.git
 
 
    ```
 2. Navigate to the project directory:
    ```sh
-   cd student-management-api
+   cd Student-Record-Manager-api
    ```
 3. Install dependencies:
    ```sh
@@ -27,7 +27,7 @@ This is a Flask-based Student Management System API that allows you to add, upda
    ```
 4. Run the application:
    ```sh
-   python app.py
+   python main.py
    ```
 
 ## API Endpoints
