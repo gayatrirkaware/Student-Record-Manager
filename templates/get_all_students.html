@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <button onclick="location.href='dashboard.html'">🏠 Home</button>
+    <h2>All Students</h2>
+    <button onclick="fetchStudents()">Get All</button>
+    <br><br>
+    <h3>Student List:</h3>
+    <div id="studentList">
+      <!-- Student list will be displayed here -->
+    </div>
+  </div>
+
+  <script>
+    function fetchStudents() {
+      fetch('/students')
+        .then(res => res.json())
+        .then(data => {
+          if (data.length === 0) {
+            document.getElementById("studentList").innerHTML = "<p>No students found.</p>";
+          } else {
+            let studentTable = `
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Roll No</th>
+                    <th>Courses</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                  </tr>
+                </thead>
+                <tbody>
+            `;
+            
+            // Loop through the student data and create table rows
+            data.forEach(student => {
+              studentTable += `
+                <tr>
+                  <td>${student.name}</td>
+                  <td>${student.rollNo}</td>
+                  <td>${student.courses}</td>
+                  <td>${student.marks}</td>
+                  <td>${student.grade}</td>
+                </tr>
+              `;
+            });
+
+            studentTable += `</tbody></table>`;
+            document.getElementById("studentList").innerHTML = studentTable;
+          }
+        });
+    }
+  </script>
+</body>
+</html>
